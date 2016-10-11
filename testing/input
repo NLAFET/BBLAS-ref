@@ -1,0 +1,104 @@
+#This input file specifies the parameters for matrices generation
+
+
+#Specification of options generation
+#gen_uplo = 1 --> uplo = 'U'
+#gen_uplo = 2 --> uplo = 'L'
+#gen_uplo = 3 --> uplo chosen randomly from 'U' or 'L' for each subproblem [variable only]
+gen_uplo  = 1
+
+
+#gen_transA = 1 --> transA = 'N'
+#gen_transA = 2 --> transA = 'T'
+#gen_transA = 3 --> transA = 'C'
+#gen_transA = 4 --> transA chosen randomly from 'N', 'T' or 'C' for each subproblem [variable only]
+gen_transA  = 2
+
+#gen_transB = 1 --> transB = 'N'
+#gen_transB = 2 --> transB = 'T'
+#gen_transB = 3 --> transB = 'C'
+#gen_transB = 4 --> transB chosen randomly from 'N', 'T' or 'C' for each subproblem [variable only]
+gen_transB  = 1
+
+#gen_trans = 1 --> trans = 'N'
+#gen_trans = 2 --> trans = 'T'
+#gen_trans = 3 --> trans = 'C'
+#gen_trans = 4 --> trans chosen randomly from 'N', 'T' or 'C' for each subproblem [variable only]
+gen_trans  = 1
+
+#gen_side = 1 --> side = 'L'
+#gen_side = 2 --> side = 'R'
+#gen_side = 3 --> side chosen randomly from 'L' or 'R' for each subproblem [variable only]
+gen_side  = 1
+
+#gen_diag = 1 --> diag = 'N'
+#gen_diag = 2 --> diag = 'U'
+#gen_diag = 3 --> diag chosen randomly from 'N' or 'U' for each subproblem [variable only]
+gen_diag  = 1
+
+
+minM = 64
+maxM = 64
+minN = 64
+maxN = 64
+minK = 64
+maxK = 64
+
+# Set the tolerance  for accuracy testing
+tolerance = 10
+
+#Number of bblas testing
+nb_test = 10
+
+# Set the minimum value of batch_count
+# this value will double from on test to another
+# such that maxbatch_count = minbatch_count*nb_test
+minbatch_count = 100
+
+
+# batch_opts: 0 for fixed and  1 for variable
+batch_opts = 0
+
+# Choice of blas to be tested
+# for GEMM, routine=1,  for HEMM, routine=2,
+# for HER2K, routine=3, for HERK, routine=4,
+# for SYMM, routine=5,  for SYR2K,routine=6,
+# for SYRK, routine=7,  for TRMM, routine=8,
+# for TRSM, routine=9
+routine = 1
+
+#Choice of the bblas implementation to be compared to
+# for  BBLAS_MKL,          target = 1
+# for  BBLAS_CUBLAS,       target = 2
+# for  BBLAS_MAGMA,        target = 3
+# for  BBLAS_OTHER,        target = 4
+# for both MKL and CUBLAS, target = 5
+target = 2
+
+
+#Choice of accuracy checking strategy
+# The new accuracy checking is based
+# forward error bound except for trsm
+# based on backward error bound
+# Set new_accuracy to 0 to use the
+# old version based on approximation
+new_accuracy = 1
+
+#To use mkl in sequential mkl
+#set mkl_sequential to one
+mkl_sequential = 1
+
+
+#Parameter to set error (e.g set negative size)
+# To enable error, set_error =1, otherwise set_error =0
+set_error = 0
+
+#To enable error in a global variable as batch_count or batch_opts
+#Set global_error to zero
+global_error = 0
+
+
+#Set the faulty iteration
+# 0 <= faulty_iter <= nb_test
+# If faulty_iter is not set, a random value is used by default
+faulty_iter = 5

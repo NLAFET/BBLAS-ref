@@ -1,0 +1,184 @@
+/**
+ * @mainpage
+ *
+ * @section sec-intro Batched BLAS - Reference Implementation
+ * This repository contains a reference implementation of Batched BLAS (BBLAS)
+ * along with routines which allow comparison between the reference implementation,
+ * the BBLAS functionality in CuBLAS and MKL, and an OpenMP implementation.
+ * This can easily be extended to test any future implementation of the standard.
+ *
+ * Contents:
+ * - @subpage page-intro
+ * - @subpage page-install
+ * - @subpage page-refimp
+ * - @subpage page-testing
+ *
+ * @page page-intro Introduction to Batched BLAS
+ * Whilst standard BLAS libraries are optimized for computing large BLAS computations quickly,
+ * in some applications we require the computation of many small and medium size BLAS
+ * operations instead.
+ * BBLAS is designed to address this by computing many small and medium size BLAS operations
+ * simultaneously,
+ * the reference implementation outlines a standard set of functionality and parameters
+ * required to perform a batched BLAS operation.
+ *
+ * Note that a batched BLAS computation refers to running the same operation multiple times
+ * on different inputs, for example running 1000 DGEMM computations on different input matrices.
+ * Batched BLAS <b>does not</b> refer to computing different BLAS operations on the same input data.
+ *
+ * There are two types of batch BLAS computations supported by the standard.
+ * - Fixed batch - All matrices in the batch have the same shape and the same values of
+ *                 @f$\alpha@f$ and uplo etc.
+ * - Variable batch - All matrices in the batch can have differing shapes and the other
+ *                    parameters can also vary.
+ *
+ * For example, a fixed DGEMM would compute
+ * @f[ C_i = \alpha A_i B_i + \beta C_i,\quad \mbox{for }i = 1:P,@f]
+ * whereas a variable DGEMM would compute
+ * @f[ C_i = \alpha_i A_i B_I + \beta_i C_i,\quad \mbox{for }i = 1:P,@f]
+ * where @f$\alpha@f$ and @f$\beta@f$ vary in the second computation.
+ *
+ * @section sec-apps Applications of BBLAS
+ * There are a number of applications that can benefit from applying batched BLAS operations.
+ * For example in:
+ * - multifrontal methods for sparse linear algebra.
+ * - tensor contractions.
+ * - image and signal processing.
+ * - high-order FEM schemes for hydrodynamics.
+ *
+ * @page page-refimp Reference Implementation of BBLAS
+ * The reference implementation is designed as a simple implementation of the standard
+ * which can be used for testing highly optimized implementations,
+ * as such we should not expect it to give good performance.
+ *
+ * Each BBLAS operation in our reference implementation consists of two sections:
+ * one for fixed batches and another for variable batches.
+ * Within each section we perform error checks on the input parameters and then loop
+ * over each matrix in the batch,
+ * calling CBLAS (or ATLAS/MKL depending upon the compilation) to solve each subproblem.
+ * In order to have a fully functioning "optimized" implementation with which to compare,
+ * we have implemented the same code where all loops are parallelized with OpenMP as part of
+ * our testing framework.
+ *
+ * Currently the BBLAS implementations by NVIDIA and Intel support the following
+ * level-3 BLAS operations.
+ *
+ * @section NVIDIA Batched BLAS Functionality
+ *
+ * In the following table replace X with one of S, D, C, Z
+ * for single, double, complex, and double complex precision, respectively.
+ *
+ * Level-3 BLAS Function | CuBLAS Function Name
+ * ----------------------|---------------------
+ * XGEMM                 | <tt>cublasXgemmBatched</tt>
+ * XTRSM                 | <tt>cublasXtrsmBatched</tt>
+ *
+ * Limitations: Currently CuBLAS only implements fixed batch operations.
+ *
+ * Note: CuBLAS also implements some LAPACK functionality in a batched way such as
+ * batched LU factorization in <tt>cublasXgetrfBatched</tt>.
+ *
+ * @section Intel Batched BLAS Functionality
+ *
+ * In the following table replace X with one of s, d, c, z
+ * for single, double, complex, and double complex precision, respectively.
+ *
+ * Level-3 BLAS Function | MKL Function Name
+ * ----------------------|------------------
+ * XGEMM                 | <tt>cblas_Xgemm_batch</tt>
+ *
+ * Note: MKL also implements <tt>cblas_Xgemm3m_batch</tt> as a batched version of GEMM
+ * which uses less multiplication operations.
+ *
+ * @page page-install Installation Instructions
+ *
+ * The installation of BBLAS is handled via a Python script (setup.py) which
+ * automatically downloads and installs and missing dependencies from Netlib.
+ * Note that, if you wish to (optionally) compile with MKL and CUDA, you must install these
+ * yourself before running our Python script.
+ * The default compiler used is GCC.
+ *
+ * When the code is not compiled with the MKL and CUDA libraries,
+ * we cannot run tests to compare their performance.
+ *
+ * By default documentation for the project is also generated.
+ * This required doxygen and graphviz to be installed.
+ * To turn this off add <tt>\--nodocumenation</tt> to the parameters shown below.
+ *
+ * When running any installation there is an install log which is located (by default) in
+ * <tt>./build/log/</tt>.
+ * You can also find logs for installing any downloaded dependencies here,
+ * as well as the logs of all tests performed.
+ *
+ * @section sec-basic-install Basic Installation
+ *
+ * In this section we cover the basic installation patterns that a user may want to use.
+ * To see all possible installation options please look at the documentation for setup.py.
+ *
+ * @subsection sec-refblas Using Reference BLAS
+ * Obtaining a basic installation of batched BLAS using the reference BLAS,
+ * downloaded from Netlib, is very simple.
+ * @code ./setup.py --downall @endcode
+ * This will download BLAS, CBLAS, LAPACK, LAPACKE, and TMG then compile everything and
+ * run some basic tests.
+ * By default the downloaded libraries will be stored in <tt>./build</tt> with the
+ * libraries and headers stored in <tt>./install</tt>. To change these defaults please use
+ * the <tt>\--prefix</tt> argument.
+ *
+ * @subsection sec-atlas Using ATLAS BLAS
+ * To use ATLAS BLAS instead of the reference BLAS implementation,
+ * assuming that CBLAS, ATLAS BLAS, and F77 BLAS are installed in a standard directory,
+ * we can set the <tt>\--blaslib</tt> option.
+ * @code ./setup.py --blaslib="-lf77blas -lcblas -latlas" @endcode
+ * By default the downloaded libraries will be stored in <tt>./build</tt> with the
+ * libraries and headers stored in <tt>./install</tt>. To change these defaults please use
+ * the <tt>\--prefix</tt> argument.
+ *
+ * @subsection sec-mkl Using MKL BLAS
+ * To use MKL BLAS set the <tt>\--blaslib</tt> option to the string given by the
+ * <a href="https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor">
+ * Intel MKL Link Line Advisor</a>.
+ * For example, using the GCC compiler, with Intel 64 architecture, static linking,
+ * 32-bit interface, OpenMP threading, and the GNU OpenMP library we have the following.
+ * @code ./setup.py --blaslib=" -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl"@endcode
+ * By default the downloaded libraries will be stored in <tt>./build</tt> with the
+ * libraries and headers stored in <tt>./install</tt>. To change these defaults please use
+ * the <tt>\--prefix</tt> argument.
+ *
+ * @subsection sec-cuda Using CUDA
+ * We can also compile with CUDA by using the <tt>\--cudadir</tt> parameter.
+ * This must be the path of the main cuda directory, such as <tt>/usr/local/cuda</tt>, for example.
+ * The following will compile with both MKL and CUDA.
+ * Note that the latest version of CUDA will only compile with gcc-4.9 or lower so we must use
+ * the <tt>--cc</tt> parmeter.
+ * @code ./setup.py --blaslib=" -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_gnu_thread.a -Wl,--end-group -lpthread -lm -ldl" --cc=gcc-4.9 --cudadir="/usr/local/cuda" @endcode
+ * By default the downloaded libraries will be stored in <tt>./build</tt> with the
+ * libraries and headers stored in <tt>./install</tt>. To change these defaults please use
+ * the <tt>\--prefix</tt> argument.
+ *
+ * @page page-testing Testing Instructions
+ * Once the software is installed we can run a number of tests to compare different implementations
+ * of batched BLAS.
+ * The default output contains helpful information on the system configuration
+ * along with the test parameters, Gflop/s and statistics on the accuracy of the computation.
+ *
+ * These are done using the script run_tests.py found in the <tt>testing</tt> directory
+ * with various command-line options.
+ * Each test generates a number of input files, saved in the directory <tt>/testinfo</tt>,
+ * so that interesting tests can be saved and rerun at a later date.
+ * Here are some example tests that can be run.
+ *
+ * @section sec-testall Test All Possibilities
+ * To test every combination of parameters with every implementation
+ * (which takes a long time!) we can run the following.
+ * @code ./run_tests.py --allroutines --allparams --alltargets -o @endcode
+ *
+ * The added <tt>-o</tt> options saves the output to files to be read later,
+ * or for post-processing.
+ *
+ * @section sec-testgemm Test SGEMM
+ * To test the speed and accuracy of SGEMM for square matrices of size 128*128 using
+ * all implementation of BBLAS, we can run the following.
+ * @code ./run_tests.py --gemm --alltargets -p s --batch_type f -N 128 -K 128 -M 128 @endcode
+ *
+ **/

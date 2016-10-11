@@ -1,0 +1,341 @@
+## Automatically generated Makefile
+PYTHON ?= python
+
+./bblas_magma/bblas_smagma.h: ./bblas_magma/bblas_zmagma.h
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_magma/bblas_zmagma.h
+./bblas_magma/bblas_dmagma.h: ./bblas_magma/bblas_zmagma.h
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_magma/bblas_zmagma.h
+./bblas_magma/bblas_cmagma.h: ./bblas_magma/bblas_zmagma.h
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_magma/bblas_zmagma.h
+./bblas_cuda/bblas_scuda.h: ./bblas_cuda/bblas_zcuda.h
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_cuda/bblas_zcuda.h
+./bblas_cuda/bblas_dcuda.h: ./bblas_cuda/bblas_zcuda.h
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_cuda/bblas_zcuda.h
+./bblas_cuda/bblas_ccuda.h: ./bblas_cuda/bblas_zcuda.h
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_cuda/bblas_zcuda.h
+./bblas_mkl/bblas_smkl.h: ./bblas_mkl/bblas_zmkl.h
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_mkl/bblas_zmkl.h
+./bblas_mkl/bblas_dmkl.h: ./bblas_mkl/bblas_zmkl.h
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_mkl/bblas_zmkl.h
+./bblas_mkl/bblas_cmkl.h: ./bblas_mkl/bblas_zmkl.h
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_mkl/bblas_zmkl.h
+./bblas_omp/bblas_somp.h: bblas_omp/bblas_zomp.h
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/bblas_zomp.h
+./bblas_omp/bblas_domp.h: bblas_omp/bblas_zomp.h
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/bblas_zomp.h
+./bblas_omp/bblas_comp.h: ./bblas_omp/bblas_zomp.h
+	$(PYTHON) ../tools/codegen.py  -p c bblas_omp/bblas_zomp.h
+../include/bblas_s.h: ../include/bblas_z.h 
+	$(PYTHON) ../tools/codegen.py  -p s ../include/bblas_z.h
+../include/bblas_d.h: ../include/bblas_z.h 
+	$(PYTHON) ../tools/codegen.py  -p d ../include/bblas_z.h
+../include/bblas_c.h: ../include/bblas_z.h 
+	$(PYTHON) ../tools/codegen.py  -p c ../include/bblas_z.h
+bblas_stesting.h: bblas_ztesting.h 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_ztesting.h
+bblas_dtesting.h: bblas_ztesting.h 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_ztesting.h
+bblas_ctesting.h: bblas_ztesting.h 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_ztesting.h
+../src/sgemm_batch.c: ../src/zgemm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s ../src/zgemm_batch.c 
+../src/dgemm_batch.c: ../src/zgemm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d ../src/zgemm_batch.c
+../src/cgemm_batch.c: ../src/zgemm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/zgemm_batch.c 
+../src/chemm_batch.c: ../src/zhemm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/zhemm_batch.c 
+../src/cher2k_batch.c: ../src/zher2k_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c ../src/zher2k_batch.c 
+../src/cherk_batch.c: ../src/zherk_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/zherk_batch.c 
+../src/ssymm_batch.c: ../src/zsymm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s ../src/zsymm_batch.c 
+../src/dsymm_batch.c: ../src/zsymm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d ../src/zsymm_batch.c
+../src/csymm_batch.c: ../src/zsymm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/zsymm_batch.c 
+../src/ssyr2k_batch.c: ../src/zsyr2k_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s ../src/zsyr2k_batch.c 
+../src/dsyr2k_batch.c: ../src/zsyr2k_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d ../src/zsyr2k_batch.c
+../src/csyr2k_batch.c: ../src/zsyr2k_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c ../src/zsyr2k_batch.c 
+../src/ssyrk_batch.c: ../src/zsyrk_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s ../src/zsyrk_batch.c 
+../src/dsyrk_batch.c: ../src/zsyrk_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d ../src/zsyrk_batch.c
+../src/csyrk_batch.c: ../src/zsyrk_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/zsyrk_batch.c 
+../src/strsm_batch.c: ../src/ztrsm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s ../src/ztrsm_batch.c 
+../src/dtrsm_batch.c: ../src/ztrsm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d ../src/ztrsm_batch.c
+../src/ctrsm_batch.c: ../src/ztrsm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/ztrsm_batch.c 
+../src/strmm_batch.c: ../src/ztrmm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s ../src/ztrmm_batch.c 
+../src/dtrmm_batch.c: ../src/ztrmm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d ../src/ztrmm_batch.c
+../src/ctrmm_batch.c: ../src/ztrmm_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c ../src/ztrmm_batch.c 
+testing_sgemm_batch.c: testing_zgemm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s testing_zgemm_batch.c
+testing_dgemm_batch.c: testing_zgemm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d testing_zgemm_batch.c
+testing_cgemm_batch.c: testing_zgemm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_zgemm_batch.c
+testing_chemm_batch.c: testing_zhemm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_zhemm_batch.c
+testing_cher2k_batch.c: testing_zher2k_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c testing_zher2k_batch.c
+testing_cherk_batch.c: testing_zherk_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_zherk_batch.c
+testing_ssymm_batch.c: testing_zsymm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s testing_zsymm_batch.c
+testing_dsymm_batch.c: testing_zsymm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d testing_zsymm_batch.c
+testing_csymm_batch.c: testing_zsymm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_zsymm_batch.c
+testing_ssyr2k_batch.c: testing_zsyr2k_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p s testing_zsyr2k_batch.c
+testing_dsyr2k_batch.c: testing_zsyr2k_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p d testing_zsyr2k_batch.c
+testing_csyr2k_batch.c: testing_zsyr2k_batch.c 
+	$(PYTHON) ../tools/codegen.py  -p c testing_zsyr2k_batch.c
+testing_ssyrk_batch.c: testing_zsyrk_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s testing_zsyrk_batch.c
+testing_dsyrk_batch.c: testing_zsyrk_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d testing_zsyrk_batch.c
+testing_csyrk_batch.c: testing_zsyrk_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_zsyrk_batch.c
+testing_strsm_batch.c: testing_ztrsm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s testing_ztrsm_batch.c
+testing_dtrsm_batch.c: testing_ztrsm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d testing_ztrsm_batch.c
+testing_ctrsm_batch.c: testing_ztrsm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_ztrsm_batch.c
+testing_strmm_batch.c: testing_ztrmm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p s testing_ztrmm_batch.c
+testing_dtrmm_batch.c: testing_ztrmm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p d testing_ztrmm_batch.c
+testing_ctrmm_batch.c: testing_ztrmm_batch.c 
+	 $(PYTHON) ../tools/codegen.py  -p c testing_ztrmm_batch.c
+bblas_stesting.c: bblas_ztesting.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_ztesting.c
+bblas_dtesting.c: bblas_ztesting.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_ztesting.c
+bblas_ctesting.c: bblas_ztesting.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_ztesting.c
+bblas_stest.c: bblas_ztest.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_ztest.c
+bblas_dtest.c: bblas_ztest.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_ztest.c
+bblas_ctest.c: bblas_ztest.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_ztest.c
+bblas_saccuracy.c: bblas_zaccuracy.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_zaccuracy.c
+bblas_daccuracy.c: bblas_zaccuracy.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_zaccuracy.c
+bblas_caccuracy.c: bblas_zaccuracy.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_zaccuracy.c
+bblas_sflops.c: bblas_zflops.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_zflops.c
+bblas_dflops.c: bblas_zflops.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_zflops.c
+bblas_cflops.c: bblas_zflops.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_zflops.c
+bblas_sparsefile.c: bblas_zparsefile.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_zparsefile.c
+bblas_dparsefile.c: bblas_zparsefile.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_zparsefile.c
+bblas_cparsefile.c: bblas_zparsefile.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_zparsefile.c
+bblas_sprint.c: bblas_zprint.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_zprint.c
+bblas_dprint.c: bblas_zprint.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_zprint.c
+bblas_cprint.c: bblas_zprint.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_zprint.c
+bblas_sutil.c: bblas_zutil.c 
+	$(PYTHON) ../tools/codegen.py  -p s bblas_zutil.c
+bblas_dutil.c: bblas_zutil.c 
+	$(PYTHON) ../tools/codegen.py  -p d bblas_zutil.c
+bblas_cutil.c: bblas_zutil.c 
+	$(PYTHON) ../tools/codegen.py  -p c bblas_zutil.c
+./bblas_omp/omp_sgemm_batch.c: ./bblas_omp/omp_zgemm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_zgemm_batch.c
+./bblas_omp/omp_dgemm_batch.c: ./bblas_omp/omp_zgemm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_zgemm_batch.c
+./bblas_omp/omp_cgemm_batch.c: ./bblas_omp/omp_zgemm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zgemm_batch.c
+./bblas_omp/omp_chemm_batch.c: ./bblas_omp/omp_zhemm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zhemm_batch.c
+./bblas_omp/omp_cher2k_batch.c: ./bblas_omp/omp_zher2k_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zher2k_batch.c
+./bblas_omp/omp_cherk_batch.c: ./bblas_omp/omp_zherk_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zherk_batch.c
+./bblas_omp/omp_ssymm_batch.c: ./bblas_omp/omp_zsymm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_zsymm_batch.c
+./bblas_omp/omp_dsymm_batch.c: ./bblas_omp/omp_zsymm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_zsymm_batch.c
+./bblas_omp/omp_csymm_batch.c: ./bblas_omp/omp_zsymm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zsymm_batch.c
+./bblas_omp/omp_ssyr2k_batch.c: ./bblas_omp/omp_zsyr2k_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_zsyr2k_batch.c
+./bblas_omp/omp_dsyr2k_batch.c: ./bblas_omp/omp_zsyr2k_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_zsyr2k_batch.c
+./bblas_omp/omp_csyr2k_batch.c: ./bblas_omp/omp_zsyr2k_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zsyr2k_batch.c
+./bblas_omp/omp_ssyrk_batch.c: ./bblas_omp/omp_zsyrk_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_zsyrk_batch.c
+./bblas_omp/omp_dsyrk_batch.c: ./bblas_omp/omp_zsyrk_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_zsyrk_batch.c
+./bblas_omp/omp_csyrk_batch.c: ./bblas_omp/omp_zsyrk_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_zsyrk_batch.c
+./bblas_omp/omp_strsm_batch.c: ./bblas_omp/omp_ztrsm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_ztrsm_batch.c
+./bblas_omp/omp_dtrsm_batch.c: ./bblas_omp/omp_ztrsm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_ztrsm_batch.c
+./bblas_omp/omp_ctrsm_batch.c: ./bblas_omp/omp_ztrsm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_ztrsm_batch.c
+./bblas_omp/omp_strmm_batch.c: ./bblas_omp/omp_ztrmm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_omp/omp_ztrmm_batch.c
+./bblas_omp/omp_dtrmm_batch.c: ./bblas_omp/omp_ztrmm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_omp/omp_ztrmm_batch.c
+./bblas_omp/omp_ctrmm_batch.c: ./bblas_omp/omp_ztrmm_batch.c
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_omp/omp_ztrmm_batch.c
+./bblas_mkl/bblas_smkl.c: ./bblas_mkl/bblas_zmkl.c 
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_mkl/bblas_zmkl.c
+./bblas_mkl/bblas_dmkl.c: ./bblas_mkl/bblas_zmkl.c 
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_mkl/bblas_zmkl.c 
+./bblas_mkl/bblas_cmkl.c: ./bblas_mkl/bblas_zmkl.c 
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_mkl/bblas_zmkl.c
+./bblas_cuda/bblas_scuda.c: ./bblas_cuda/bblas_zcuda.c 
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_cuda/bblas_zcuda.c
+./bblas_cuda/bblas_dcuda.c: ./bblas_cuda/bblas_zcuda.c 
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_cuda/bblas_zcuda.c 
+./bblas_cuda/bblas_ccuda.c: ./bblas_cuda/bblas_zcuda.c 
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_cuda/bblas_zcuda.c
+./bblas_magma/bblas_smagma.c: ./bblas_magma/bblas_zmagma.c 
+	$(PYTHON) ../tools/codegen.py  -p s ./bblas_magma/bblas_zmagma.c
+./bblas_magma/bblas_dmagma.c: ./bblas_magma/bblas_zmagma.c 
+	$(PYTHON) ../tools/codegen.py  -p d ./bblas_magma/bblas_zmagma.c
+./bblas_magma/bblas_cmagma.c: ./bblas_magma/bblas_zmagma.c 
+	$(PYTHON) ../tools/codegen.py  -p c ./bblas_magma/bblas_zmagma.c	
+gen = \
+	bblas_stesting.h \
+	bblas_dtesting.h \
+	bblas_ctesting.h \
+	./bblas_mkl/bblas_smkl.h \
+	./bblas_mkl/bblas_dmkl.h \
+	./bblas_mkl/bblas_cmkl.h \
+	../include/bblas_s.h \
+	../include/bblas_d.h \
+	../include/bblas_c.h \
+	../src/sgemm_batch.c \
+	../src/ssymm_batch.c \
+	../src/ssyr2k_batch.c \
+	../src/ssyrk_batch.c \
+	../src/strmm_batch.c \
+	../src/strsm_batch.c \
+	bblas_stesting.c \
+	bblas_stest.c \
+	testing_sgemm_batch.c \
+	testing_ssymm_batch.c \
+	testing_ssyr2k_batch.c \
+	testing_ssyrk_batch.c \
+	testing_strmm_batch.c \
+	testing_strsm_batch.c \
+	bblas_saccuracy.c bblas_sflops.c \
+	bblas_sparsefile.c \
+	bblas_dparsefile.c \
+	bblas_cparsefile.c \
+	bblas_sutil.c \
+	bblas_sprint.c \
+	bblas_dprint.c \
+	bblas_cprint.c \
+	./bblas_omp/omp_sgemm_batch.c \
+	./bblas_omp/omp_ssymm_batch.c \
+	./bblas_omp/omp_ssyr2k_batch.c \
+	./bblas_omp/omp_ssyrk_batch.c \
+	./bblas_omp/omp_strsm_batch.c \
+	./bblas_omp/omp_strmm_batch.c \
+	./bblas_mkl/bblas_smkl.c \
+	./bblas_magma/bblas_smagma.h \
+	./bblas_magma/bblas_dmagma.h \
+	./bblas_magma/bblas_cmagma.h \
+	./bblas_magma/bblas_smagma.c \
+	./bblas_magma/bblas_dmagma.c \
+	./bblas_magma/bblas_cmagma.c \
+	./bblas_cuda/bblas_scuda.h \
+	./bblas_cuda/bblas_dcuda.h \
+	./bblas_cuda/bblas_ccuda.h \
+	./bblas_cuda/bblas_scuda.c \
+	../src/dgemm_batch.c \
+	../src/dsymm_batch.c \
+	../src/dsyr2k_batch.c \
+	../src/dsyrk_batch.c \
+	../src/dtrmm_batch.c \
+	../src/dtrsm_batch.c \
+	bblas_dtesting.c \
+	bblas_dtest.c \
+	testing_dgemm_batch.c \
+	testing_dsymm_batch.c \
+	testing_dsyr2k_batch.c \
+	testing_dsyrk_batch.c \
+	testing_dtrmm_batch.c \
+	testing_dtrsm_batch.c \
+	bblas_daccuracy.c bblas_dflops.c \
+	bblas_dutil.c \
+	./bblas_omp/bblas_somp.h \
+	./bblas_omp/bblas_domp.h \
+	./bblas_omp/bblas_comp.h \
+	./bblas_omp/omp_dgemm_batch.c \
+	./bblas_omp/omp_dsymm_batch.c \
+	./bblas_omp/omp_dsyr2k_batch.c \
+	./bblas_omp/omp_dsyrk_batch.c \
+	./bblas_omp/omp_dtrsm_batch.c \
+	./bblas_omp/omp_dtrmm_batch.c \
+	./bblas_mkl/bblas_dmkl.c \
+	./bblas_cuda/bblas_dcuda.c \
+	../src/cgemm_batch.c \
+	../src/chemm_batch.c \
+	../src/cher2k_batch.c \
+	../src/cherk_batch.c \
+	../src/csymm_batch.c \
+	../src/csyr2k_batch.c \
+	../src/csyrk_batch.c \
+	../src/ctrmm_batch.c \
+	../src/ctrsm_batch.c \
+	bblas_ctesting.c \
+	bblas_ctest.c \
+	testing_cgemm_batch.c \
+	testing_chemm_batch.c \
+	testing_cher2k_batch.c \
+	testing_cherk_batch.c \
+	testing_csymm_batch.c \
+	testing_csyr2k_batch.c \
+	testing_csyrk_batch.c \
+	testing_ctrmm_batch.c \
+	testing_ctrsm_batch.c \
+	bblas_caccuracy.c bblas_cflops.c \
+	bblas_cutil.c \
+	./bblas_omp/omp_cgemm_batch.c \
+	./bblas_omp/omp_chemm_batch.c \
+	./bblas_omp/omp_cher2k_batch.c \
+	./bblas_omp/omp_cherk_batch.c \
+	./bblas_omp/omp_csymm_batch.c \
+	./bblas_omp/omp_csyr2k_batch.c \
+	./bblas_omp/omp_csyrk_batch.c \
+	./bblas_omp/omp_ctrsm_batch.c \
+	./bblas_omp/omp_ctrmm_batch.c \
+	./bblas_mkl/bblas_cmkl.c \
+	./bblas_cuda/bblas_ccuda.c     
+
+cleangen:
+	rm -f $(gen)
+
+generate: $(gen)
+
+.PHONY: cleangen generate

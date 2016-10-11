@@ -1,0 +1,36 @@
+BBLAS_SRC_DIR     = ../src
+BBLAS_OMP_DIR     = ./bblas_omp
+BBLAS_MKL_DIR     = ./bblas_mkl
+BBLAS_CUDA_DIR    = ./bblas_cuda
+
+DEPS              =  -I.  -I../include  -I$(BBLAS_MKL_DIR) -I$(BBLAS_OMP_DIR) -I$(BBLAS_CUDA_DIR)
+
+CC = gcc
+CFLAGS = -DBBLAS_WITH_CUBLAS -c -std=c99 -DADD_ -Wall -pedantic -fopenmp 
+
+# BLAS libraries
+BLAS_DIR                =
+BLAS_LIB                = 
+
+# CBLAS libraries
+CBLAS_DIR               = 
+CBLAS_LIB               = 
+CBLAS_INC               = 
+
+#LAPACK libraries
+LAPACK_DIR              = 
+LAPACK_LIB              = 
+LAPACK_INC              = 
+
+#LAPACKE libraries
+LAPACKE_DIR             = 
+LAPACKE_LIB             = 
+LAPACKE_INC             = 
+
+#CUDA libraries
+CUDA_DIR                = /opt/cuda-7.0
+CUDA_LIB                = -L$(CUDA_DIR)/lib64 -lcudart -lcublas -lcuda
+CUDA_INC                = -I$(CUDA_DIR)/include
+
+DEPS                    += $(LAPACKE_INC) $(LAPACK_INC) $(CBLAS_INC) $(CUDA_INC)
+LDFLAGS                 = $(MKL_LIB) $(CUDA_LIB) $(LAPACKE_LIB) $(LAPACK_LIB) $(CBLAS_LIB) $(BLAS_LIB) -fopenmp -lm -lgfortran -llapacke -llapack -lcblas -lblas
